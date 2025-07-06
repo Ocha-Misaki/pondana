@@ -1,0 +1,32 @@
+-# .flex.justify-center
+-#   = simple_form_for(@form, url: books_path, method: :get) do |f|
+-#     .flex.items-center.gap-4
+-#       .w-2xl
+-#         = f.input :query, placeholder: "キーワードを入れてください", label: false, input_html: { class: "input-md w-full", type: 'search' }
+-#       = f.button :submit, class: "btn btn-primary", value: "検索"
+-#       = link_to 'バーコード検索', new_barcode_scan_path, class: "btn btn-link"
+
+.p-10
+  .flex.grid.grid-cols-2.gap-6
+    - @books.each do |book|
+      -# TODO: リファクタをしたい
+      .card.card-side.bg-base-100
+        = image_tag book.image.variant(resize_to_fit: [200, 200]), class: "object-contain rounded-s-lg", alt: book.title
+        .card-body
+          %h5.card-title.hover:underline
+            = link_to book.title, book_path(book)
+          %p.card-text= book.author
+          %p.card-text= book.description.truncate(80)
+          %p.badge.badge-soft.badge-accent= book.genre.name
+          .flex.items-center.gap-3
+            %div
+              - unless current_user.having?(book)
+                = button_to "持ってる", book_having_books_path(book), class: "btn btn-primary"
+              - else
+                = button_to "持っているを解除", book_having_book_path(book, current_user.having_books.find_by(book: book)), method: :delete, class: "btn btn-primary"
+            %div
+              - unless current_user.interested?(book)
+                = button_to "気になる", book_interests_path(book), class: "btn btn-secondary"
+              - else
+                = button_to "気になるを解除", book_interest_path(book, current_user.interests.find_by(book: book)), method: :delete, class: "btn btn-secondary"
+= paginate @books

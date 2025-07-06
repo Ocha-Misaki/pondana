@@ -8,12 +8,15 @@ gem "cssbundling-rails"
 gem "devise"
 gem 'dotenv-rails'
 gem 'haml-rails'
+gem "image_processing"
 gem "jbuilder"
 gem "jsbundling-rails"
 gem "kamal", require: false
+gem "kaminari"
 gem "pg"
 gem "propshaft"
 gem "puma"
+gem 'rakuten_web_service'
 gem 'simple_form'
 gem "solid_cable"
 gem "solid_cache"
