@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: retro --default;
+  themes: autumn --default;
 }
 @plugin "daisyui/theme" {
-  themes: retro --default;
+  themes: autumn --default;
 }
