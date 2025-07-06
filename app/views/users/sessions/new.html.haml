@@ -1,14 +1,17 @@
-%h2 Log in
-= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .form-inputs
-    = f.input :email,
-      required: false,
-      autofocus: true,
-      input_html: { autocomplete: "email" }
-    = f.input :password,
-      required: false,
-      input_html: { autocomplete: "current-password" }
-    = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-  .form-actions
-    = f.button :submit, "Log in"
-= render "users/shared/links"
+.flex.justify-center
+  .card.bg-base-100.shadow-xl.w-full.max-w-lg.h-full
+    .card-body
+      %h2 Log in
+      = simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'flex flex-col gap-4'}) do |f|
+        .form-inputs
+          = f.input :email,
+            required: false,
+            autofocus: true,
+            input_html: { autocomplete: "email" }
+          = f.input :password,
+            required: false,
+            input_html: { autocomplete: "current-password" }
+          = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+        .form-actions
+          = f.button :submit
+      = render "users/shared/links"

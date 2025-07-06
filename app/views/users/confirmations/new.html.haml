@@ -1,13 +1,16 @@
-%h2 Resend confirmation instructions
-= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-  = f.error_notification
-  = f.full_error :confirmation_token
-  .form-inputs
-    = f.input :email,
-      required: true,
-      autofocus: true,
-      value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
-      input_html: { autocomplete: "email" }                                                    
-  .form-actions
-    = f.button :submit, "Resend confirmation instructions"
-= render "users/shared/links"
+.flex.justify-center
+  .card.bg-base-100.shadow-xl.w-full.max-w-lg.h-full
+    .card-body
+      %h2 Resend confirmation instructions
+      = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: 'flex flex-col gap-4' }) do |f|
+        = f.error_notification
+        = f.full_error :confirmation_token
+        .form-inputs
+          = f.input :email,
+            required: true,
+            autofocus: true,
+            value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+            input_html: { autocomplete: "email" }
+        .form-actions
+          = f.button :submit
+      = render "users/shared/links"

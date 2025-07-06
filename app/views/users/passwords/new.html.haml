@@ -1,11 +1,14 @@
-%h2 Forgot your password?
-= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-  = f.error_notification
-  .form-inputs
-    = f.input :email,
-      required: true,
-      autofocus: true,
-      input_html: { autocomplete: "email" }
-  .form-actions
-    = f.button :submit, "Send me reset password instructions"
-= render "users/shared/links"
+.flex.justify-center
+  .card.bg-base-100.shadow-xl.w-full.max-w-lg.h-full
+    .card-body
+      %h2 Forgot your password?
+      = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'flex flex-col gap-4' }) do |f|
+        = f.error_notification
+        .form-inputs
+          = f.input :email,
+            required: true,
+            autofocus: true,
+            input_html: { autocomplete: "email" }
+        .form-actions
+          = f.button :submit
+      = render "users/shared/links"

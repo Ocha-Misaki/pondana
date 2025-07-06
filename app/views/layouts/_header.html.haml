@@ -1,0 +1,7 @@
+.navbar.px-10.py-2.shadow-md
+  .flex-1
+    = link_to 'Book Manager', root_path, class: 'btn btn-ghost lg:text-xl'
+  .hidden.flex-none.lg:block
+    %ul.menu.menu-horizontal.px-1.gap-3.items-center
+      - if user_signed_in?
+        %li= button_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'text-error font-bold'

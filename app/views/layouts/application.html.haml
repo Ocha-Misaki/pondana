@@ -15,4 +15,6 @@
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
   %body
-    = yield
+    = render 'layouts/header'
+    .py-10.mx-6.lg:mx-8
+      = yield
