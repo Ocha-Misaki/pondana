@@ -2,6 +2,7 @@ class Book < ApplicationRecord
   has_one_attached :image do |attachable|
     attachable.variant :thumb, resize_to_limit: [200, 200]
   end
+  has_many :book_genres, dependent: :restrict_with_exception
 
   validates :title, presence: true
   validates :author, presence: true
