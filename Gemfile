@@ -11,6 +11,7 @@ gem 'haml-rails'
 gem "jbuilder"
 gem "jsbundling-rails"
 gem "kamal", require: false
+gem "kaminari"
 gem "pg"
 gem "propshaft"
 gem "puma"
