@@ -1,7 +1,5 @@
 class BooksController < ApplicationController
   def index
-  end
-
-  def create
+    @books = Book.default_order.page(params[:page])
   end
 end
