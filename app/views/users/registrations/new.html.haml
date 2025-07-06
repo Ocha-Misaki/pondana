@@ -5,9 +5,9 @@
       = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'flex flex-col gap-4'}) do |f|
         = f.error_notification
         .form-inputs
+          = f.input :name, required: true
           = f.input :email,
             required: true,
-            autofocus: true,
             input_html: { autocomplete: "email" }
           = f.input :password,
             required: true,
@@ -16,6 +16,9 @@
           = f.input :password_confirmation,
             required: true,
             input_html: { autocomplete: "new-password" }
+          = f.input :image, as: :file, accept: 'image/png,image/jpg,image/jpeg',
+            label: 'Profile Image',
+            hint: '画像は5MB以下のPNG、JPG、JPEG形式を選択してください'
         .form-actions
           = f.button :submit
       = render "users/shared/links"
