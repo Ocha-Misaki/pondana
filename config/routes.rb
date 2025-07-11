@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :books, only: %i[index] do
     resources :having_books, only: %i[create destroy], module: :books
+    resources :interests, only: %i[create destroy], module: :books
   end
 
   if Rails.env.development?

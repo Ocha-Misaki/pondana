@@ -15,15 +15,17 @@
           %p.badge.badge-soft.badge-accent= book.genre.name
           %p.card-text= book.author
           %p.card-text= book.description.truncate(80)
-          -# .flex.items-center.gap-3
-          -#   %div
-          -#     - unless current_user.having?(book)
-          -#       = button_to "持ってる", book_having_books_path(book), class: "btn btn-primary"
-          -#     - else
-          -#       = button_to "持っているを解除", book_having_book_path(book, current_user.having_books.find_by(book: book)), method: :delete, class: "btn btn-primary"
-          -#   %div
-          -#     - unless current_user.interested?(book)
-          -#       = button_to "気になる", book_interests_path(book), class: "btn btn-secondary"
-          -#     - else
-          -#       = button_to "気になるを解除", book_interest_path(book, current_user.interests.find_by(book: book)), method: :delete, class: "btn btn-secondary"
+          .flex.items-center.gap-3
+            %div
+              - if current_user.having?(book)
+                - having_book = current_user.having_books.find_by(book: book)
+                = button_to "持っているを解除", book_having_book_path(book, having_book), method: :delete, class: "btn btn-primary btn-soft"
+              - else
+                = button_to "持ってる", book_having_books_path(book), class: "btn btn-primary btn-soft"
+            %div
+              - if current_user.interested?(book)
+                - interested_book = current_user.interests.find_by(book: book)
+                = button_to "気になるを解除", book_interest_path(book, interested_book), method: :delete, class: "btn btn-secondary btn-soft"
+              - else
+                = button_to "気になる", book_interests_path(book), class: "btn btn-secondary btn-soft"
 = paginate @books
