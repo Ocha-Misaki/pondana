@@ -3,6 +3,7 @@ class Book < ApplicationRecord
   has_one_attached :image do |attachable|
     attachable.variant :thumb, resize_to_limit: [200, 200]
   end
+  has_many :having_books, dependent: :destroy
 
   validates :title, presence: true
   validates :author, presence: true
