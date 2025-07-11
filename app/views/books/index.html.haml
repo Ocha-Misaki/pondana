@@ -11,10 +11,10 @@
       .card.card-side.bg-base-100
         = image_tag book.image.variant(resize_to_fit: [200, 200]), class: "object-contain rounded-s-lg", alt: book.title
         .card-body
-          %h5.card-title.hover:underline
+          %h5.card-title= book.title
+          %p.badge.badge-soft.badge-accent= book.genre.name
           %p.card-text= book.author
           %p.card-text= book.description.truncate(80)
-          -# %p.badge.badge-soft.badge-accent= book.genre.name
           -# .flex.items-center.gap-3
           -#   %div
           -#     - unless current_user.having?(book)
