@@ -1,8 +1,8 @@
 class Book < ApplicationRecord
+  belongs_to :genre
   has_one_attached :image do |attachable|
     attachable.variant :thumb, resize_to_limit: [200, 200]
   end
-  has_many :book_genres, dependent: :restrict_with_exception
 
   validates :title, presence: true
   validates :author, presence: true
@@ -19,6 +19,7 @@ class Book < ApplicationRecord
         book.title = item['title']
         book.author = item['author']
         book.description = item['itemCaption']
+        book.genre = Genre.search_and_create_by!(item['booksGenreId'])
 
         if book.image.blank? && item['largeImageUrl'].present?
           book.image.attach(io: OpenURI.open_uri(item['largeImageUrl']), filename: 'book_image.jpg', content_type: 'image/jpeg')
