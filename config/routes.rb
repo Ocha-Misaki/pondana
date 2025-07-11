@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     confirmations: "users/confirmations",
   }
 
-  resources :books, only: %i[index]
+  resources :books, only: %i[index] do
+    resources :having_books, only: %i[create destroy], module: :books
+  end
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
