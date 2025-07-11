@@ -49,6 +49,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_06_141346) do
     t.string "store_url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "genre_id", null: false
+    t.index ["genre_id"], name: "index_books_on_genre_id"
     t.index ["title", "store_url"], name: "index_books_on_title_and_store_url", unique: true
   end
 
@@ -57,8 +59,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_06_141346) do
     t.string "store_genre_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "book_id", null: false
-    t.index ["book_id"], name: "index_genres_on_book_id"
     t.index ["name", "store_genre_id"], name: "index_genres_on_name_and_store_genre_id", unique: true
   end
 
@@ -82,5 +82,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_06_141346) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "genres", "books"
+  add_foreign_key "books", "genres"
 end
