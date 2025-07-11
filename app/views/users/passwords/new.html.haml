@@ -6,9 +6,9 @@
         = f.error_notification
         .form-inputs
           = f.input :email,
-            required: true,
-            autofocus: true,
-            input_html: { autocomplete: "email" }
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "email" }
         .form-actions
           = f.button :submit
       = render "users/shared/links"

@@ -7,10 +7,10 @@
         = f.full_error :confirmation_token
         .form-inputs
           = f.input :email,
-            required: true,
-            autofocus: true,
-            value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
-            input_html: { autocomplete: "email" }
+                    required: true,
+                    autofocus: true,
+                    value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+                    input_html: { autocomplete: "email" }
         .form-actions
           = f.button :submit
       = render "users/shared/links"

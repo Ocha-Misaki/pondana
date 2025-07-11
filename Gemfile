@@ -7,6 +7,7 @@ gem "bootsnap", require: false
 gem "cssbundling-rails"
 gem "devise"
 gem 'dotenv-rails'
+gem 'haml-lint'
 gem 'haml-rails'
 gem "image_processing"
 gem "jbuilder"
