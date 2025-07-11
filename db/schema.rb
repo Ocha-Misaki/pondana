@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_06_093227) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_06_141346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,15 +42,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_06_093227) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "book_genres", force: :cascade do |t|
-    t.bigint "book_id", null: false
-    t.bigint "genre_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id", "genre_id"], name: "index_book_genres_on_book_id_and_genre_id", unique: true
-    t.index ["genre_id"], name: "index_book_genres_on_genre_id"
-  end
-
   create_table "books", force: :cascade do |t|
     t.string "title", null: false
     t.string "author", null: false
@@ -63,8 +54,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_06_093227) do
 
   create_table "genres", force: :cascade do |t|
     t.string "name", null: false
+    t.string "store_genre_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "book_id", null: false
+    t.index ["book_id"], name: "index_genres_on_book_id"
+    t.index ["name", "store_genre_id"], name: "index_genres_on_name_and_store_genre_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -87,6 +82,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_06_093227) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "book_genres", "books"
-  add_foreign_key "book_genres", "genres"
+  add_foreign_key "genres", "books"
 end
