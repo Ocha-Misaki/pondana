@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_06_141346) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_11_123848) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -62,6 +62,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_06_141346) do
     t.index ["name", "store_genre_id"], name: "index_genres_on_name_and_store_genre_id", unique: true
   end
 
+  create_table "having_books", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "book_id", null: false
+    t.datetime "purchased_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_having_books_on_book_id"
+    t.index ["user_id", "book_id"], name: "index_having_books_on_user_id_and_book_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -83,4 +93,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_06_141346) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "books", "genres"
+  add_foreign_key "having_books", "books"
+  add_foreign_key "having_books", "users"
 end
