@@ -1,5 +1,5 @@
 .flex.justify-center
-  = simple_form_for(@form, url: books_path, method: :get) do |f|
+  = simple_form_for(@book_search_form, url: books_path) do |f|
     .flex.items-center.gap-4
       .w-2xl
         = f.input :query, placeholder: "キーワードを入れてください", label: false, input_html: { class: "input-md w-full", type: 'search' }
@@ -8,24 +8,12 @@
 .p-10
   .flex.grid.grid-cols-2.gap-6
     - @books.each do |book|
-      .card.card-side.bg-base-100
-        = image_tag book.image.variant(resize_to_fit: [200, 200]), class: "object-contain rounded-s-lg", alt: book.title
-        .card-body
-          %h5.card-title= book.title
-          %p.badge.badge-soft.badge-accent= book.genre.name
-          %p.card-text= book.author
-          %p.card-text= book.description.truncate(80)
-          .flex.items-center.gap-3
-            %div
-              - if current_user.having?(book)
-                - having_book = current_user.having_books.find_by(book: book)
-                = button_to "持っているを解除", book_having_book_path(book, having_book), method: :delete, class: "btn btn-primary btn-soft"
-              - else
-                = button_to "持ってる", book_having_books_path(book), class: "btn btn-primary btn-soft"
-            %div
-              - if current_user.interested?(book)
-                - interested_book = current_user.interests.find_by(book: book)
-                = button_to "気になるを解除", book_interest_path(book, interested_book), method: :delete, class: "btn btn-secondary btn-soft"
-              - else
-                = button_to "気になる", book_interests_path(book), class: "btn btn-secondary btn-soft"
+      = link_to book_path(book) do
+        .card.card-side.bg-base-100
+          = image_tag book.image.variant(resize_to_fit: [200, 200]), class: "object-contain rounded-s-lg", alt: book.title
+          .card-body
+            .card-title= book.title
+            .badge.badge-soft.badge-accent= book.genre.name
+            .card-text= book.author
+            .card-text= book.description.truncate(80)
 = paginate @books

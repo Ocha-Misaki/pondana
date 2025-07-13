@@ -1,0 +1,43 @@
+.row
+  .col-6.col-md-8
+    .card.card-lg
+      .card-body
+        .flex.flex-col.lg:flex-row.gap-6
+          .flex-shrink-0
+            .avatar
+              = image_tag @book.image, alt: @book.title, class: "w-full h-full object-cover rounded-lg"
+          .flex.flex-col.gap-6
+            .flex.gap-2.items-center
+              .card-title.text-3xl.font-bold= @book.title
+              .badge.badge-soft.badge-accent= @book.genre.name
+            .text-gray-600= @book.author
+            .mb-4
+              = link_to "楽天で見る", @book.store_url, target: "_blank", class: "btn btn-soft"
+            .flex.items-center.gap-3
+              %div
+                - if current_user.having?(@book)
+                  = button_to "持っているを解除", book_having_book_path(@book, @having_book), method: :delete, class: "btn btn-primary btn-soft"
+                - else
+                  = button_to "持ってる", book_having_books_path(@book), class: "btn btn-primary btn-soft"
+              %div
+                - if current_user.interested?(@book)
+                  = button_to "気になるを解除", book_interest_path(@book, @interest), method: :delete, class: "btn btn-secondary btn-soft"
+                - else
+                  = button_to "気になる", book_interests_path(@book), class: "btn btn-secondary btn-soft"
+            .divider
+            .flex.items-center.gap-6
+              .h-full
+                #{@book.having_books.count}人が持っています
+                .flex
+                  - @book.owners.each do |owner|
+                    = image_tag owner.image, alt: owner.name, class: 'w-8 h-8 rounded-full'
+              .h-full
+                #{@book.interests.count}人が気になっています
+                .flex
+                  - @book.interesting_users.each do |interesting_user|
+                    = image_tag interesting_user.image, alt: interesting_user.name, class: 'w-8 h-8 rounded-full'
+          - if current_user.having?(@book)
+            .card.shadow-md.w-96.ml-8
+              .card-body
+                .card-title.text-xl.font-bold.mb-4 持っている本の評価
+                = render 'having_books/ratings/form', having_book: @having_book, rating_form: @rating_form, rating: @rating

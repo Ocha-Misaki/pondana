@@ -2,6 +2,10 @@
 ja:
   activerecord:
     attributes:
+      rating:
+        readability: 読みやすさ
+        recommendation: おすすめ度
+        helpfulness: 役立ち度
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"

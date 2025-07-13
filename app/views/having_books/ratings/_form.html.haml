@@ -1,0 +1,21 @@
+- url = rating.present? ? having_book_rating_path(having_book, rating) : having_book_ratings_path(having_book)
+- method = rating.present? ? :patch : :post
+
+= form_with model: rating_form, url:, method: do |f|
+  .flex.flex-col.gap-6
+    %div
+      = f.label :readability, '読みやすさ', class: "block"
+      .rating
+        - (1..5).each do |i|
+          = f.radio_button :readability, i, class: "mask mask-star-2 bg-green-500", checked: (rating_form.readability == i)
+    %div
+      = f.label :recommendation, 'おすすめ度', class: "block"
+      .rating
+        - (1..5).each do |i|
+          = f.radio_button :recommendation, i, class: "mask mask-star-2 bg-green-500", checked: (rating_form.recommendation == i)
+    %div
+      = f.label :helpfulness, 'お役立ち度', class: "block"
+      .rating
+        - (1..5).each do |i|
+          = f.radio_button :helpfulness, i, class: "mask mask-star-2 bg-green-500", checked: (rating_form.helpfulness == i)
+    = f.submit class: "btn btn-primary mt-4"

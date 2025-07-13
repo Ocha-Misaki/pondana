@@ -8,9 +8,12 @@ Rails.application.routes.draw do
     confirmations: "users/confirmations",
   }
 
-  resources :books, only: %i[index] do
+  resources :books, only: %i[index show] do
     resources :having_books, only: %i[create destroy], module: :books
     resources :interests, only: %i[create destroy], module: :books
+  end
+  resources :having_books do
+    resources :ratings, only: %i[create update], module: :having_books
   end
 
   if Rails.env.development?
