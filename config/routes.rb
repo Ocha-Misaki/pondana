@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: "home#index"
+  root to: "books#index"
 
   devise_for :users, controllers: {
     sessions: "users/sessions",
@@ -8,9 +8,10 @@ Rails.application.routes.draw do
     confirmations: "users/confirmations",
   }
 
-  resources :books, only: %i[index show] do
+  resources :books, only: %i[show] do
     resources :having_books, only: %i[create destroy], module: :books
     resources :interests, only: %i[create destroy], module: :books
+    resources :comments, only: %i[create destroy], module: :books
   end
   resources :having_books do
     resources :ratings, only: %i[create update], module: :having_books

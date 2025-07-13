@@ -15,6 +15,7 @@ class BooksController < ApplicationController
 
   def show
     @rating_form = RatingForm.new.call(@having_book)
+    @comment = current_user.comments.build
   end
 
   private

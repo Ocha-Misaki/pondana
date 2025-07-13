@@ -2,15 +2,28 @@
   .col-6.col-md-8
     .card.card-lg
       .card-body
-        .flex.flex-col.lg:flex-row.gap-6
+        .flex.flex-col.lg:flex-row.gap-8
           .flex-shrink-0
             .avatar
               = image_tag @book.image, alt: @book.title, class: "w-full h-full object-cover rounded-lg"
+            .divider
+            .flex.flex-col.gap-6
+              .h-full
+                #{@book.having_books.count}人が持っています
+                .flex
+                  - @book.owners.each do |owner|
+                    = image_tag owner.image, alt: owner.name, class: 'w-8 h-8 rounded-full'
+              .h-full
+                #{@book.interests.count}人が気になっています
+                .flex
+                  - @book.interesting_users.each do |interesting_user|
+                    = image_tag interesting_user.image, alt: interesting_user.name, class: 'w-8 h-8 rounded-full'
           .flex.flex-col.gap-6
             .flex.gap-2.items-center
               .card-title.text-3xl.font-bold= @book.title
               .badge.badge-soft.badge-accent= @book.genre.name
-            .text-gray-600= @book.author
+            .card-text= @book.author
+            .card-text.w-96= @book.description
             .mb-4
               = link_to "楽天で見る", @book.store_url, target: "_blank", class: "btn btn-soft"
             .flex.items-center.gap-3
@@ -25,19 +38,25 @@
                 - else
                   = button_to "気になる", book_interests_path(@book), class: "btn btn-secondary btn-soft"
             .divider
-            .flex.items-center.gap-6
-              .h-full
-                #{@book.having_books.count}人が持っています
-                .flex
-                  - @book.owners.each do |owner|
-                    = image_tag owner.image, alt: owner.name, class: 'w-8 h-8 rounded-full'
-              .h-full
-                #{@book.interests.count}人が気になっています
-                .flex
-                  - @book.interesting_users.each do |interesting_user|
-                    = image_tag interesting_user.image, alt: interesting_user.name, class: 'w-8 h-8 rounded-full'
-          - if current_user.having?(@book)
-            .card.shadow-md.w-96.ml-8
-              .card-body
-                .card-title.text-xl.font-bold.mb-4 持っている本の評価
-                = render 'having_books/ratings/form', having_book: @having_book, rating_form: @rating_form, rating: @rating
+            .text-xl.font-bold.mb-4 コメント一覧
+            - @book.comments.each do |comment|
+              .card.shadow-md.w-96.mb-4
+                .card-body
+                  .flex.items-center.gap-2
+                    = image_tag comment.user.image, alt: comment.user.name, class: 'w-8 h-8 rounded-full'
+                    %span.font-semibold= comment.user.name
+                  .card-text= comment.content
+                  .text-sm.text-gray-500= l(comment.created_at, format: :short)
+                  - if current_user.comments.exists?(comment.id)
+                    = button_to "削除", book_comment_path(@book, comment), method: :delete, data: { turbo_confirm: '削除しますか?' }, class: "btn btn-sm btn-secondary float-right"
+          .flex.flex-col.gap-4
+            - if current_user.having?(@book)
+              .card.shadow-md.w-96
+                .card-body
+                  .card-title.text-xl.font-bold.mb-4 持っている本の評価
+                  = render 'having_books/ratings/form', having_book: @having_book, rating_form: @rating_form, rating: @rating
+            .collapse.collapse-plus.bg-base-200.w-96.p-3
+              %input{ type: "checkbox" }
+              .collapse-title.font-semibold コメントを書く
+              .collapse-content
+                = render 'books/comments/form', comment: @comment, book: @book

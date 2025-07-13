@@ -7,6 +7,7 @@ class User < ApplicationRecord
   end
   has_many :having_books, dependent: :destroy
   has_many :interests, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :books, through: :having_books
   has_many :interested_books, through: :interests, source: :book
 

@@ -1,0 +1,3 @@
+= simple_form_for(comment, url: book_comments_path(book)) do |f|
+  = f.input :content, as: :text, input_html: { rows: 5 }, label: false, placeholder: "コメントを入力してください"
+  = f.button :submit, "投稿", class: "btn btn-primary mt-4"
