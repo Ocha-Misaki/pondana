@@ -39,7 +39,7 @@ class Book < ApplicationRecord
   end
 
   def average_rating
-    return 0 if having_books.empty?
+    return false if ratings.empty?
 
     total_readability = ratings.sum(:readability)
     total_recommendation = ratings.sum(:recommendation)

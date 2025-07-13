@@ -14,7 +14,8 @@
       = link_to "楽天で見る", @book.store_url, target: "_blank", class: "btn btn-soft"
     .flex.items-center.gap-3
       = render 'action_buttons', book: @book, having_book: @having_book, interest: @interest
-    = render 'books/average_rating', book: @book
+    - if @book.average_rating.present?
+      = render 'books/average_rating', book: @book
     .divider
     .text-xl.font-bold.mb-4 コメント一覧
     - @book.comments.each do |comment|
