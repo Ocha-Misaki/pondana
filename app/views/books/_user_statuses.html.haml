@@ -1,0 +1,11 @@
+.flex.flex-col.gap-6
+  .h-full
+    #{book.having_books.count}人が持っています
+    .flex
+      - book.owners.each do |owner|
+        = image_tag owner.image, alt: owner.name, class: 'w-8 h-8 rounded-full'
+  .h-full
+    #{book.interests.count}人が気になっています
+    .flex
+      - book.interesting_users.each do |interesting_user|
+        = image_tag interesting_user.image, alt: interesting_user.name, class: 'w-8 h-8 rounded-full'

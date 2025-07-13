@@ -1,0 +1,15 @@
+.flex.gap-3.items-center
+  %label 読みやすさ
+  .rating
+    - (1..5).each do |i|
+      %div{ class: "mask mask-star-2 bg-green-500", 'aria-current': ('true' if @book.average_rating[:readability] == i) }
+.flex.gap-3.items-center
+  %label おすすめ度
+  .rating
+    - (1..5).each do |i|
+      %div{ class: "mask mask-star-2 bg-green-500", 'aria-current': ('true' if @book.average_rating[:recommendation] == i) }
+.flex.gap-3.items-center
+  %label お役立ち度
+  .rating
+    - (1..5).each do |i|
+      %div{ class: "mask mask-star-2 bg-green-500", 'aria-current': ('true' if @book.average_rating[:helpfulness] == i) }

@@ -8,6 +8,7 @@ class Book < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :owners, through: :having_books, source: :user
   has_many :interesting_users, through: :interests, source: :user
+  has_many :ratings, through: :having_books
 
   validates :title, presence: true
   validates :author, presence: true
@@ -35,5 +36,20 @@ class Book < ApplicationRecord
       end
       Book.where(id: books.map(&:id))
     end
+  end
+
+  def average_rating
+    return 0 if having_books.empty?
+
+    total_readability = ratings.sum(:readability)
+    total_recommendation = ratings.sum(:recommendation)
+    total_helpfulness = ratings.sum(:helpfulness)
+
+    count = ratings.size
+    {
+      readability: (total_readability / count.to_f).round(2),
+      recommendation: (total_recommendation / count.to_f).round(2),
+      helpfulness: (total_helpfulness / count.to_f).round(2),
+    }
   end
 end

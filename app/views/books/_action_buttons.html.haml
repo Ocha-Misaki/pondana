@@ -1,0 +1,10 @@
+%div
+  - if current_user.having?(book)
+    = button_to "持っているを解除", book_having_book_path(book, having_book), method: :delete, class: "btn btn-primary btn-soft"
+  - else
+    = button_to "持ってる", book_having_books_path(book), class: "btn btn-primary btn-soft"
+%div
+  - if current_user.interested?(book)
+    = button_to "気になるを解除", book_interest_path(book, interest), method: :delete, class: "btn btn-secondary btn-soft"
+  - else
+    = button_to "気になる", book_interests_path(book), class: "btn btn-secondary btn-soft"
