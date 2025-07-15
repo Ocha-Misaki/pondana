@@ -1,6 +1,6 @@
 class HavingBooks::RatingsController < HavingBooks::ApplicationController
   def create
-    @rating_form = RatingForm.new.call(@having_book, rating_form_params)
+    @rating_form = RatingForm.new(rating_form_params.merge(having_book_id: @having_book.id))
     if @rating_form.save
       redirect_to book_path(@having_book.book), notice: "評価を保存しました"
     else
@@ -9,7 +9,7 @@ class HavingBooks::RatingsController < HavingBooks::ApplicationController
   end
 
   def update
-    @rating_form = RatingForm.new.call(@having_book, rating_form_params)
+    @rating_form = RatingForm.new(rating_form_params.merge(having_book_id: @having_book.id))
     if @rating_form.save
       redirect_to book_path(@having_book.book), notice: "評価を更新しました"
     else
