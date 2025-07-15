@@ -9,12 +9,12 @@ Rails.application.routes.draw do
   }
 
   resources :books, only: %i[show] do
-    resources :having_books, only: %i[create destroy], module: :books
+    resources :ownerships, only: %i[create destroy], module: :books
     resources :interests, only: %i[create destroy], module: :books
     resources :comments, only: %i[create destroy], module: :books
   end
-  resources :having_books do
-    resources :ratings, only: %i[create update], module: :having_books
+  resources :ownerships do
+    resources :ratings, only: %i[create update], module: :ownerships
   end
 
   if Rails.env.development?

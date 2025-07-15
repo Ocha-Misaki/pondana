@@ -13,7 +13,7 @@
     .mb-4
       = link_to "楽天で見る", @book.store_url, target: "_blank", class: "btn btn-soft"
     .flex.items-center.gap-3
-      = render 'action_buttons', book: @book, having_book: @having_book, interest: @interest
+      = render 'action_buttons', book: @book, ownership: @ownership, interest: @interest
     - if @book.average_rating.present?
       = render 'books/average_rating', book: @book
     .divider
@@ -25,7 +25,7 @@
       .card.shadow-md.w-96
         .card-body
           .card-title.text-xl.font-bold.mb-4 持っている本の評価
-          = render 'having_books/ratings/form', having_book: @having_book, rating_form: @rating_form, rating: @rating
+          = render 'ownerships/ratings/form', ownership: @ownership, rating_form: @rating_form, rating: @rating
     .collapse.collapse-plus.bg-base-200.w-96.p-3
       %input{ type: "checkbox" }
       .collapse-title.font-semibold コメントを書く

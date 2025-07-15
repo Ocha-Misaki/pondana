@@ -3,12 +3,12 @@ class Book < ApplicationRecord
   has_one_attached :image do |attachable|
     attachable.variant :thumb, resize_to_limit: [200, 200]
   end
-  has_many :having_books, dependent: :destroy
+  has_many :ownerships, dependent: :destroy
   has_many :interests, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :owners, through: :having_books, source: :user
+  has_many :owners, through: :ownerships, source: :user
   has_many :interesting_users, through: :interests, source: :user
-  has_many :ratings, through: :having_books
+  has_many :ratings, through: :ownerships
 
   validates :title, presence: true
   validates :author, presence: true

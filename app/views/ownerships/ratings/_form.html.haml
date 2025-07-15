@@ -1,4 +1,4 @@
-- url = rating.present? ? having_book_rating_path(having_book, rating) : having_book_ratings_path(having_book)
+- url = rating.present? ? ownership_rating_path(ownership, rating) : ownership_ratings_path(ownership)
 - method = rating.present? ? :patch : :post
 
 = form_with model: rating_form, url:, method: do |f|

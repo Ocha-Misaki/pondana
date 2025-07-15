@@ -72,16 +72,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_032053) do
     t.index ["name", "store_genre_id"], name: "index_genres_on_name_and_store_genre_id", unique: true
   end
 
-  create_table "having_books", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "book_id", null: false
-    t.datetime "purchased_at", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_having_books_on_book_id"
-    t.index ["user_id", "book_id"], name: "index_having_books_on_user_id_and_book_id", unique: true
-  end
-
   create_table "interests", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "book_id", null: false
@@ -91,14 +81,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_032053) do
     t.index ["user_id", "book_id"], name: "index_interests_on_user_id_and_book_id", unique: true
   end
 
+  create_table "ownerships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "book_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_ownerships_on_book_id"
+    t.index ["user_id", "book_id"], name: "index_ownerships_on_user_id_and_book_id", unique: true
+  end
+
   create_table "ratings", force: :cascade do |t|
     t.integer "readability", default: 0, null: false
     t.integer "recommendation", default: 0, null: false
     t.integer "helpfulness", default: 0, null: false
-    t.bigint "having_book_id", null: false
+    t.bigint "ownership_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["having_book_id"], name: "index_ratings_on_having_book_id"
+    t.index ["ownership_id"], name: "index_ratings_on_ownership_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -124,9 +123,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_032053) do
   add_foreign_key "books", "genres"
   add_foreign_key "comments", "books"
   add_foreign_key "comments", "users"
-  add_foreign_key "having_books", "books"
-  add_foreign_key "having_books", "users"
   add_foreign_key "interests", "books"
   add_foreign_key "interests", "users"
-  add_foreign_key "ratings", "having_books"
+  add_foreign_key "ownerships", "books"
+  add_foreign_key "ownerships", "users"
+  add_foreign_key "ratings", "ownerships"
 end

@@ -4,7 +4,7 @@ class CreateRatings < ActiveRecord::Migration[8.0]
       t.integer :readability, null: false, default: 0
       t.integer :recommendation, null: false, default: 0
       t.integer :helpfulness, null: false, default: 0
-      t.references :having_book, null: false, foreign_key: true
+      t.references :ownership, null: false, foreign_key: true
 
       t.timestamps
     end

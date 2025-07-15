@@ -1,5 +1,5 @@
 class Rating < ApplicationRecord
-  belongs_to :having_book
+  belongs_to :ownership
 
   validates :readability, presence: true
   validates :recommendation, presence: true
