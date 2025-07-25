@@ -5,7 +5,7 @@ class BookSearchForm < ApplicationForm
     return Book.all if query.blank?
 
     items = RakutenWebService::Books::Total.search(keyword: query)
-    return Book.all if items.blank?
+    return false if items.blank?
 
     Book.create_from_store(items.first(10))
   end
