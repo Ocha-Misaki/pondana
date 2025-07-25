@@ -1,7 +1,7 @@
 .flex.justify-center
   .card.bg-base-100.shadow-xl.w-full.max-w-lg.h-full
     .card-body
-      %h2 Resend confirmation instructions
+      %h2 メールアドレスの確認
       = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: 'flex flex-col gap-4' }) do |f|
         = f.error_notification
         = f.full_error :confirmation_token

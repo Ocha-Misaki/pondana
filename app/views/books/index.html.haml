@@ -1,5 +1,5 @@
 .flex.justify-center
-  = simple_form_for(@book_search_form, url: root_path) do |f|
+  = simple_form_for(@book_search_form, url: root_path, method: :get) do |f|
     .flex.items-center.gap-4
       .w-2xl
         = f.input :query, placeholder: "キーワードを入れてください", label: false, input_html: { class: "input-md w-full", type: 'search' }
