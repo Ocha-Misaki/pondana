@@ -12,9 +12,10 @@
     %link{ href: "/icon.png", rel: "icon", type: "image/png" }
     %link{ href: "/icon.svg", rel: "icon", type: "image/svg+xml" }
     %link{ href: "/icon.png", rel: "apple-touch-icon" }
+    %link{ href: pwa_manifest_path(format: :json), rel: "manifest" }
     = stylesheet_link_tag :app, 'data-turbo-track': "reload"
     = javascript_include_tag "application", 'data-turbo-track': "reload", type: "module"
-  %body
+  %body{ data: { controller: "service-worker" } }
     = render 'layouts/header'
     .py-10.mx-6.lg:mx-8
       = render 'shared/flash_messages'
