@@ -23,5 +23,6 @@
     "postcss-import": "^16.1.1",
     "postcss-nesting": "^13.0.2",
     "tailwindcss": "^4.1.11"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }

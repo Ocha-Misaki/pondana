@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "rails", "8.0.2"
 
 gem 'activestorage-validator'
+gem "aws-sdk-s3", require: false
 gem "bootsnap", require: false
 gem "cssbundling-rails"
 gem "devise"
@@ -36,6 +37,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "dockerfile-rails"
   gem 'letter_opener_web'
   gem "web-console"
 end
