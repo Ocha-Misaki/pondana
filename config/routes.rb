@@ -8,12 +8,13 @@ Rails.application.routes.draw do
     confirmations: "users/confirmations",
   }
 
+  resources :ownerships, only: %i[create destroy]
+
   resources :books, only: %i[show] do
-    resources :ownerships, only: %i[create destroy], module: :books
-    resources :interests, only: %i[create destroy], module: :books
     resources :comments, only: %i[create destroy], module: :books
   end
-  resources :ownerships do
+
+  resources :ownerships, only: [:index, :show, :new, :edit, :create, :update, :destroy] do
     resources :ratings, only: %i[create update], module: :ownerships
   end
 

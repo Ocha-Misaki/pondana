@@ -44,13 +44,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_032053) do
 
   create_table "books", force: :cascade do |t|
     t.string "title", null: false
-    t.string "author", null: false
-    t.text "description", null: false
+    t.string "author"
+    t.text "description"
     t.string "store_url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "genre_id", null: false
-    t.index ["genre_id"], name: "index_books_on_genre_id"
     t.index ["title", "store_url"], name: "index_books_on_title_and_store_url", unique: true
   end
 
@@ -62,14 +60,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_032053) do
     t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_comments_on_book_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
-  create_table "genres", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "store_genre_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name", "store_genre_id"], name: "index_genres_on_name_and_store_genre_id", unique: true
   end
 
   create_table "interests", force: :cascade do |t|
@@ -120,7 +110,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_032053) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "books", "genres"
   add_foreign_key "comments", "books"
   add_foreign_key "comments", "users"
   add_foreign_key "interests", "books"

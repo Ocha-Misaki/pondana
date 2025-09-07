@@ -7,13 +7,30 @@
 
 .p-10
   .flex.grid.grid-cols-2.gap-6
-    - @books.each do |book|
-      = link_to book_path(book) do
-        .card.card-side.bg-base-100
-          = image_tag book.image.variant(resize_to_fit: [200, 200]), class: "object-contain rounded-s-lg", alt: book.title
-          .card-body
-            .card-title= book.title
-            .badge.badge-soft.badge-accent= book.genre.name
-            .card-text= book.author
-            .card-text= book.description.truncate(80)
-= paginate @books
+    - @books.each do |item|
+      .card.card-side.bg-base-100
+        - if item['largeImageUrl'].present?
+          = image_tag item['largeImageUrl'], class: "object-contain rounded-s-lg", alt: item['title'], style: "width: 200px; height: 200px;"
+        - elsif item.image.attached?
+          = image_tag item.image, class: "object-contain rounded-s-lg", alt: item['title'], style: "width: 200px; height: 200px;"
+        - else
+          %div{ class: "w-[200px] h-[200px] bg-gray-200 rounded-s-lg flex items-center justify-center" }
+            %span.text-gray-500 画像なし
+        .card-body
+          .card-title= item['title']
+          .card-text= item['author']
+          .card-text= item['itemCaption']&.truncate(80)
+          .text-sm.text-gray-500
+            %p= "価格: #{item['itemPrice']}円" if item['itemPrice']
+            %p= "出版社: #{item['publisherName']}" if item['publisherName']
+          - ownership = current_user.ownerships.find_by(book_id: item['id'])
+          - if ownership.present?
+            = button_to '持ってるを取り消す', ownership_path(ownership), method: :delete, class: "btn btn-sm btn-secondary mt-2"
+          - else
+            = button_to '持ってる', ownerships_path, class: "btn btn-sm btn-primary mt-2", params: { book: item.to_json }
+
+-# FB
+  - BookWrapperクラスが別途必要かも
+  - BookWrapperを使うことで、viewの分岐が減る
+  - Bookと楽天のレスポンスをwrapする目的
+  - そうすると、Book.create_from_storeみたいな処理も、BookWrapper.create_from_storeみたいな感じにできる

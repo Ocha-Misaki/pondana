@@ -1,12 +1,16 @@
 class BookSearchForm < ApplicationForm
   attribute :query, :string
 
-  def call
-    return Book.all if query.blank?
+  def books
+    return [] if query.blank?
 
     items = RakutenWebService::Books::Total.search(keyword: query)
-    return false if items.blank?
+    return [] if items.blank?
 
-    Book.create_from_store(items.first(10))
+    items.first(10)
+    # NOTE: 元々return falseだったが、返り値はActiveRecord::Relationである方が適切
+
+    # FB
+    # - ここの処理がActiveRecord::Relationを返したり、itemsを返したりしている時点で設計が破綻している
   end
 end
