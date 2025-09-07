@@ -1,16 +1,15 @@
 .flex.justify-center
   = simple_form_for(@book_search_form, url: root_path, method: :get) do |f|
     .flex.items-center.gap-4
-      .w-2xl
-        = f.input :query, placeholder: "キーワードを入れてください", label: false, input_html: { class: "input-md w-full", type: 'search' }
-      = f.button :submit, class: "btn btn-soft btn-primary", value: "検索"
+      .w-2xl= f.input :query, placeholder: "キーワードを入れてください", label: false, input_html: { class: "input-md w-full", type: 'search' }
+      = f.submit "検索", class: "btn btn-soft btn-primary"
 
 .p-10
   .flex.grid.grid-cols-2.gap-6
     - @books.each do |book|
       = link_to book_path(book) do
         .card.card-side.bg-base-100
-          = image_tag book.image.variant(resize_to_fit: [200, 200]), class: "object-contain rounded-s-lg", alt: book.title
+          = image_tag book.image.variant(:thumb), class: "object-contain rounded-s-lg", alt: book.title
           .card-body
             .card-title= book.title
             .badge.badge-soft.badge-accent= book.genre.name

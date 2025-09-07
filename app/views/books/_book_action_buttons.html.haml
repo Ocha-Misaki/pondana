@@ -1,9 +1,8 @@
-%div
+.flex.items-center.gap-3
   - if current_user.having?(book)
     = button_to "持っているを解除", book_ownership_path(book, ownership), method: :delete, class: "btn btn-primary btn-soft"
   - else
     = button_to "持ってる", book_ownerships_path(book), class: "btn btn-primary btn-soft"
-%div
   - if current_user.interested?(book)
     = button_to "気になるを解除", book_interest_path(book, interest), method: :delete, class: "btn btn-secondary btn-soft"
   - else

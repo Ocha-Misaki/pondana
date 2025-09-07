@@ -2,7 +2,7 @@
   .card-body
     .flex.items-center.gap-2
       = image_tag comment.user.image, alt: comment.user.name, class: 'w-8 h-8 rounded-full'
-      %span.font-semibold= comment.user.name
+      .font-semibold= comment.user.name
     .card-text= comment.content
     .text-sm.text-gray-500= l(comment.created_at, format: :short)
     - if current_user.comments.exists?(comment.id)

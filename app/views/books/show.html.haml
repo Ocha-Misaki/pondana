@@ -1,9 +1,9 @@
 .grid.grid-flow-col.grid-cols-5.gap-6
   .col-span-1.flex-shrink-0
     .avatar
-      = image_tag @book.image, alt: @book.title, class: "w-full h-full object-cover rounded-lg"
+      = image_tag @book.image.variant(:cover), alt: @book.title, class: "w-full h-full object-cover rounded-lg"
     .divider
-    = render 'user_statuses', book: @book
+    = render 'user_list', book: @book
   .col-span-2.flex.flex-col.gap-6
     .flex.gap-2.items-center
       .card-title.text-3xl.font-bold= @book.title
@@ -11,9 +11,8 @@
     .card-text= @book.author
     .card-text= @book.description
     .mb-4
-      = link_to "楽天で見る", @book.store_url, target: "_blank", class: "btn btn-soft"
-    .flex.items-center.gap-3
-      = render 'action_buttons', book: @book, ownership: @ownership, interest: @interest
+      = link_to "楽天で見る", @book.store_url, target: :blank, class: "btn btn-soft"
+    = render 'book_action_buttons', book: @book, ownership: @ownership, interest: @interest
     - if @book.average_rating.present?
       = render 'books/average_rating', book: @book
     .divider

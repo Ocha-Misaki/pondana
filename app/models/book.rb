@@ -1,7 +1,8 @@
 class Book < ApplicationRecord
   belongs_to :genre
   has_one_attached :image do |attachable|
-    attachable.variant :thumb, resize_to_limit: [200, 200]
+    attachable.variant :thumb, resize_to_fit: [200, 200]
+    attachable.variant :cover, resize_to_fit: [300, 300]
   end
   has_many :ownerships, dependent: :destroy
   has_many :interests, dependent: :destroy
