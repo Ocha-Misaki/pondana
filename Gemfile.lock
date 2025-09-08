@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/SonicGarden/sgcop.git
-  revision: d0c4ebb9fc4a9112a24cb54daea116e889539289
+  revision: 50ae6b34a69a4a5a2b722304df8b7a4286f5adc2
   specs:
-    sgcop (1.21.1)
+    sgcop (1.22.0)
       rubocop (~> 1.80.1)
       rubocop-capybara (~> 2.22.0)
       rubocop-factory_bot (~> 2.27.0)
