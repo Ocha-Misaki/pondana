@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/SonicGarden/sgcop.git
-  revision: d0c4ebb9fc4a9112a24cb54daea116e889539289
+  revision: 6ac17975d8260a7e7dc59873787686974c264d20
   specs:
-    sgcop (1.21.1)
+    sgcop (1.22.1)
       rubocop (~> 1.80.1)
       rubocop-capybara (~> 2.22.0)
       rubocop-factory_bot (~> 2.27.0)
@@ -455,9 +455,9 @@ GEM
       railties (>= 7.1.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (3.1.5)
-      unicode-emoji (~> 4.0, >= 4.0.4)
-    unicode-emoji (4.0.4)
+    unicode-display_width (3.2.0)
+      unicode-emoji (~> 4.1)
+    unicode-emoji (4.1.0)
     uri (1.0.3)
     useragent (0.16.11)
     warden (1.2.9)
